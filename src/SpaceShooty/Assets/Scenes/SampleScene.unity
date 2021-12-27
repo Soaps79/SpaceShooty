@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 2038671156}
   - component: {fileID: 2038671155}
   - component: {fileID: 2038671158}
+  - component: {fileID: 2038671159}
   m_Layer: 0
   m_Name: player_triangle
   m_TagString: Untagged
@@ -471,3 +472,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2038671159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038671154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6775665072f897c47a892b9d453a5d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxRotationSpeed: 1

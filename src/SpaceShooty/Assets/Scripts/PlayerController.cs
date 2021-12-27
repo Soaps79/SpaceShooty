@@ -21,19 +21,19 @@ public class PlayerController : QScript
     {
         if (Input.GetKey(KeyCode.W))
         {
-            _rigidBody.AddRelativeForce(new Vector2(0,1) * Speed);
+            _rigidBody.AddForce(new Vector2(0,1) * Speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            _rigidBody.AddRelativeForce(new Vector2(-1, 0) * Speed);
+            _rigidBody.AddForce(new Vector2(-1, 0) * Speed);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            _rigidBody.AddRelativeForce(new Vector2(0, -1) * Speed);
+            _rigidBody.AddForce(new Vector2(0, -1) * Speed);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            _rigidBody.AddRelativeForce(new Vector2(1, 0) * Speed);
+            _rigidBody.AddForce(new Vector2(1, 0) * Speed);
         }
     }
 
