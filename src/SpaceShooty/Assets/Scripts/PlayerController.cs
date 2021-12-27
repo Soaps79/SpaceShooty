@@ -9,7 +9,14 @@ public class PlayerController : QScript
 {
     private Rigidbody2D _rigidBody;
 
+    public GameObject BulletPrefab;
+    public float BulletSpeed;
+
     public float Speed;
+    public float FireDelay;
+    [SerializeField]
+    private float _elapsedSinceFire;
+    private bool _isInFireDelay;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +42,27 @@ public class PlayerController : QScript
         {
             _rigidBody.AddForce(new Vector2(1, 0) * Speed);
         }
+
+        if (_isInFireDelay)
+        {
+            _elapsedSinceFire += Time.deltaTime;
+            if (_elapsedSinceFire > FireDelay)
+                _isInFireDelay = false;
+        }
+
+        if (Input.GetMouseButton(1) && !_isInFireDelay)
+        {
+            FireBullet();
+        }
+    }
+
+    private void FireBullet()
+    {
+        var bullet = GameObject.Instantiate(BulletPrefab, transform.position, transform.rotation);
+        var rigidBody = bullet.GetComponent<Rigidbody2D>();
+        rigidBody.AddForce(transform.up * BulletSpeed);
+        _isInFireDelay = true;
+        _elapsedSinceFire = 0.0f;
     }
 
 
