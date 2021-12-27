@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Weapons;
 using QGame;
 using UnityEngine;
 
@@ -8,16 +6,14 @@ using UnityEngine;
 public class PlayerController : QScript
 {
     private Rigidbody2D _rigidBody;
-
-    
-
     public float Speed;
-    
+    public BaseGun WeaponOnePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        GameObject.Instantiate(WeaponOnePrefab, transform);
     }
 
     protected override void OnUpdate()
@@ -39,8 +35,4 @@ public class PlayerController : QScript
             _rigidBody.AddForce(new Vector2(1, 0) * Speed);
         }
     }
-
-    
-
-
 }
