@@ -299,7 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4330266b2073443907ec4aea20e4ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireDelay: 0.2
+  BaseFireDelay: 0.2
+  _currentFireDelay: 0
+  _currentFireDelayModifier: 0
   _elapsedSinceFire: 0
   BulletPrefab: {fileID: 2004482444120817261, guid: bf4dc55a5cdf7e8489bc92d576bee7da, type: 3}
   BarrelOneExit: {fileID: 3674694093427378466}

@@ -1,38 +1,63 @@
+using Assets.Scripts.Powerups;
 using Assets.Scripts.Weapons;
 using QGame;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : QScript
+namespace Assets.Scripts
 {
-    private Rigidbody2D _rigidBody;
-    public float Speed;
-    public BaseGun WeaponOnePrefab;
-
-    // Start is called before the first frame update
-    void Start()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class PlayerController : QScript
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
-        GameObject.Instantiate(WeaponOnePrefab, transform);
-    }
+        private Rigidbody2D _rigidBody;
+        public float Speed;
+        public BaseGun WeaponOnePrefab;
+        private BaseGun _currentWeapon;
+        private ModifierApplicator _modifierApplicator;
 
-    protected override void OnUpdate()
-    {
-        if (Input.GetKey(KeyCode.W))
+
+        // Start is called before the first frame update
+        void Start()
         {
-            _rigidBody.AddForce(new Vector2(0,1) * Speed);
+            _rigidBody = GetComponent<Rigidbody2D>();
+            var go = GameObject.Instantiate(WeaponOnePrefab, transform);
+            _currentWeapon = go.GetComponent<BaseGun>();
+            _modifierApplicator = GetComponent<ModifierApplicator>();
+            _modifierApplicator.Initialize(this, _currentWeapon);
         }
-        if (Input.GetKey(KeyCode.A))
+
+        public void ApplyModifier(FireSpeedModifier modifier)
         {
-            _rigidBody.AddForce(new Vector2(-1, 0) * Speed);
+            modifier.ApplyAndBegin(_currentWeapon);
+            modifier.transform.SetParent(transform);
         }
-        if (Input.GetKey(KeyCode.S))
+
+        protected override void OnUpdate()
         {
-            _rigidBody.AddForce(new Vector2(0, -1) * Speed);
+            if (Input.GetKey(KeyCode.W))
+            {
+                _rigidBody.AddForce(new Vector2(0,1) * Speed);
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                _rigidBody.AddForce(new Vector2(-1, 0) * Speed);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                _rigidBody.AddForce(new Vector2(0, -1) * Speed);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                _rigidBody.AddForce(new Vector2(1, 0) * Speed);
+            }
         }
-        if (Input.GetKey(KeyCode.D))
+        void OnTriggerEnter2D(Collider2D other)
         {
-            _rigidBody.AddForce(new Vector2(1, 0) * Speed);
+            var pickup = other.GetComponent<ModifierPickup>();
+            if (pickup != null)
+            {
+                _modifierApplicator.ApplyModifier(pickup.ModifierPrefab);
+                pickup.Consume();
+            }
         }
     }
 }
