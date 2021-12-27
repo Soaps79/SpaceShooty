@@ -1,15 +1,10 @@
 ﻿using QGame;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Weapons
 {
-    public class SingleBarrel : QScript
+    public abstract class BaseGun : QScript
     {
-        public GameObject BulletPrefab;
-        public GameObject ExitPoint;
-
-        public float BulletSpeed;
-
         public float FireDelay;
         [SerializeField]
         private float _elapsedSinceFire;
@@ -26,15 +21,15 @@ namespace Assets.Scripts
 
             if (!_isInFireDelay && Input.GetMouseButton(0))
             {
-                FireBullet();
+                Fire();
+                CompleteFire();
             }
         }
 
-        private void FireBullet()
+        protected abstract void Fire();
+
+        private void CompleteFire()
         {
-            var bullet = GameObject.Instantiate(BulletPrefab, ExitPoint.transform.position, transform.rotation);
-            var rigidBody = bullet.GetComponent<Rigidbody2D>();
-            rigidBody.AddForce(transform.up * BulletSpeed);
             _isInFireDelay = true;
             _elapsedSinceFire = 0.0f;
         }
