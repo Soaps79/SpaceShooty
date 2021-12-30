@@ -130,7 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491031c79b6a1d042a5b8578cc11bd66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireDelay: 0.2
+  BaseFireDelay: 0.2
+  _currentFireDelay: 0
+  _currentFireDelayModifier: 0
   _elapsedSinceFire: 0
   BulletPrefab: {fileID: 2004482444120817261, guid: bf4dc55a5cdf7e8489bc92d576bee7da, type: 3}
   ExitPoint: {fileID: 6635752584373783634}

@@ -450,7 +450,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -600,7 +600,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -1037,6 +1037,7 @@ GameObject:
   - component: {fileID: 2038671160}
   - component: {fileID: 2038671161}
   - component: {fileID: 2038671162}
+  - component: {fileID: 2038671163}
   m_Layer: 7
   m_Name: player_triangle
   m_TagString: Untagged
@@ -1057,7 +1058,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  WeaponOnePrefab: {fileID: 7533817316052016167, guid: 5f5521d835a10c9438860dc24953f754, type: 3}
+  _startingWeapons:
+  - {fileID: 6635752583352658460, guid: 69a79efa49e55e74b927f1a8961e1ffd, type: 3}
+  - {fileID: 3674694094876633917, guid: 2a6138a05a645534f8fee4f61bb4c10c, type: 3}
+  - {fileID: 7533817316052016167, guid: 5f5521d835a10c9438860dc24953f754, type: 3}
 --- !u!212 &2038671156
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1219,6 +1223,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ff95f916418484193bd9434f89573d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2038671163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038671154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6223194e86077e4d89ed6ea18cc5675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gunArray: []
 --- !u!1001 &2254058588338867474
 PrefabInstance:
   m_ObjectHideFlags: 0

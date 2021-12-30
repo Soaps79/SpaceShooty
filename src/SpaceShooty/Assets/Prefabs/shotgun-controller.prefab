@@ -137,8 +137,7 @@ MonoBehaviour:
   ExitPoint: {fileID: 7197748454444736613}
   SprayArc: 30
   PelletCount: 10
-  StartingDistance: 50
-  PelletLifetime: 1
+  PelletLifetime: 0.5
   MinSpeed: 400
   MaxSpeed: 500
 --- !u!1 &7197748455856492288

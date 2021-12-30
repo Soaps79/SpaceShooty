@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Powerups;
 using Assets.Scripts.Weapons;
 using QGame;
@@ -10,25 +11,28 @@ namespace Assets.Scripts
     {
         private Rigidbody2D _rigidBody;
         public float Speed;
-        public BaseGun WeaponOnePrefab;
         private BaseGun _currentWeapon;
         private ModifierApplicator _modifierApplicator;
+
+        private WeaponCaddy _weaponCaddy;
+        public List<BaseGun> _startingWeapons;
 
 
         // Start is called before the first frame update
         void Start()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
-            var go = GameObject.Instantiate(WeaponOnePrefab, transform);
-            _currentWeapon = go.GetComponent<BaseGun>();
+            _weaponCaddy = GetComponent<WeaponCaddy>();
+
+            foreach (var weapon in _startingWeapons)
+            {
+                var gun = GameObject.Instantiate<BaseGun>(weapon, transform);
+                _weaponCaddy.AddGun(gun);
+            }
+
+            // needs to be redone since caddy
             _modifierApplicator = GetComponent<ModifierApplicator>();
             _modifierApplicator.Initialize(this, _currentWeapon);
-        }
-
-        public void ApplyModifier(FireSpeedModifier modifier)
-        {
-            modifier.ApplyAndBegin(_currentWeapon);
-            modifier.transform.SetParent(transform);
         }
 
         protected override void OnUpdate()
@@ -49,15 +53,30 @@ namespace Assets.Scripts
             {
                 _rigidBody.AddForce(new Vector2(1, 0) * Speed);
             }
+
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                _weaponCaddy.CycleNext();
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                _weaponCaddy.CyclePrevious();
+            }
+            
+            if (Input.GetMouseButton(0))
+            {
+                _weaponCaddy.TryFireCurrentWeapon();
+            }
         }
+
         void OnTriggerEnter2D(Collider2D other)
         {
-            var pickup = other.GetComponent<ModifierPickup>();
-            if (pickup != null)
-            {
-                _modifierApplicator.ApplyModifier(pickup.ModifierPrefab);
-                pickup.Consume();
-            }
+            //var pickup = other.GetComponent<ModifierPickup>();
+            //if (pickup != null)
+            //{
+            //    _modifierApplicator.ApplyModifier(pickup.ModifierPrefab);
+            //    pickup.Consume();
+            //}
         }
     }
 }

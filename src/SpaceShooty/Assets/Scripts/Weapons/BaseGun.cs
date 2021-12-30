@@ -25,12 +25,21 @@ namespace Assets.Scripts.Weapons
                 if (_elapsedSinceFire > _currentFireDelay)
                     _isInFireDelay = false;
             }
+        }
 
-            if (!_isInFireDelay && Input.GetMouseButton(0))
-            {
-                Fire();
-                CompleteFire();
-            }
+        public void ShutDown()
+        {
+            _isInFireDelay = false;
+            _elapsedSinceFire = 0.0f;
+        }
+
+        public bool TryFire()
+        {
+            if (_isInFireDelay) return false;
+
+            Fire();
+            CompleteFire();
+            return true;
         }
 
         public void AddFireDelayModifier(float amount)
